@@ -11,10 +11,11 @@ __pycache__/
 *.pyc
 
 # per-job workspaces + render outputs (regenerated)
-jobs/
+# NOTE: leading slash anchors to repo root so it does NOT match src/jobs/
+/jobs/
 
 # legacy single-run working files / generated assets
-out/
+/out/
 assets/images/
 assets/images_raw/
 assets/audio/
