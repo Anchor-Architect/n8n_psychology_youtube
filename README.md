@@ -91,12 +91,36 @@ cd remotion && npm install && cd ..
 
 ### 2. Configure secrets
 
+Create a `.env` in the repo root (it is git-ignored). Fill in the three API
+keys; the rest have sensible defaults.
+
 ```bash
-cp .env.example .env
-# then fill in:
-#   ANTHROPIC_API_KEY        (scene plan)
-#   ELEVENLABS_API_KEY + VOICE_ADAM_ID (or ELEVENLABS_VOICE_ID)  (narration)
-#   REPLICATE_API_TOKEN      (scene images)
+cat > .env <<'EOF'
+# ── Server ───────────────────────────────────────────────
+PORT=8080
+HOST=0.0.0.0
+LOG_LEVEL=info
+RENDER_MOCK=false          # true → stub assets, no paid APIs, no real render
+# PYTHON_BIN=/abs/path/to/python   # default: ./.venv/bin/python, then python3
+
+# ── Required API keys ────────────────────────────────────
+ANTHROPIC_API_KEY=         # scene plan (script-reviewer skill)
+ELEVENLABS_API_KEY=        # narration
+REPLICATE_API_TOKEN=       # scene images (flux-schnell)
+
+# ── Voices: request {"voice":"adam"} → VOICE_ADAM_ID ─────
+VOICE_ADAM_ID=
+ELEVENLABS_VOICE_ID=       # fallback for any unmapped voice name
+
+# ── Optional pipeline tuning ─────────────────────────────
+# CLASSIFY_MODEL=claude-opus-4-8
+# ELEVENLABS_SPEED=1.0
+# ELEVENLABS_MODEL=eleven_multilingual_v2
+# ELEVENLABS_OUTPUT_FORMAT=mp3_44100_192
+# AUDIO_TAIL_PAD=0.3
+# FLUX_MODEL=black-forest-labs/flux-schnell
+EOF
+# then open .env and paste your keys
 ```
 
 ### 3. Run it
@@ -144,8 +168,8 @@ Output lands at `jobs/<jobId>/output/<title>.mp4`.
 ## Configuration knobs
 - **Voices:** `src/config/voices.js` — `voice` name → `VOICE_<NAME>_ID` env.
 - **Channels:** `src/config/channels.js` — `channelType` → skill / style / composition.
-- **Server:** `PORT`, `HOST`, `LOG_LEVEL`, `RENDER_MOCK`, `PYTHON_BIN` (see `.env.example`).
-- **Pipeline tuning** (voice speed, audio format, flux model, etc.): see `.env.example`.
+- **Server:** `PORT`, `HOST`, `LOG_LEVEL`, `RENDER_MOCK`, `PYTHON_BIN` (see the `.env` template in step 2).
+- **Pipeline tuning** (voice speed, audio format, flux model, etc.): see the optional vars in the `.env` template above.
 
 ## Design for future scale
 - **Multiple channels** — add an entry to the channel registry.
