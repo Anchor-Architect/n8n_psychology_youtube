@@ -97,6 +97,24 @@ Fetch the final result.
 
 ---
 
+## GET /download/:jobId
+
+Stream the finished MP4 as a file download (handy when n8n is on a different
+host and can't read the engine's local disk).
+
+- **Completed** → `200` with `Content-Type: video/mp4` and
+  `Content-Disposition: attachment; filename="<title>.mp4"` (the file body).
+- `404 { "error": "job_not_found" }` — unknown job id.
+- `409 { "error": "job_not_completed", "status": "<current>" }` — render not done.
+- `404 { "error": "video_file_not_found" }` — job is completed but the file is
+  missing on disk.
+
+```bash
+curl -L -o video.mp4 http://localhost:8080/download/job_...
+```
+
+---
+
 ## GET /health
 
 Liveness + queue snapshot.

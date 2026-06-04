@@ -2,6 +2,7 @@
  * HTTP handlers for the render API. Thin layer: validate input, talk to the job
  * store / queue, shape the response. All heavy lifting happens in the pipeline.
  */
+import fs from "node:fs";
 import { config } from "../../config/index.js";
 import { logger } from "../../utils/logger.js";
 import { resolveChannel, listChannels } from "../../config/channels.js";
@@ -99,6 +100,19 @@ export function getResult(req, res) {
     progress: job.progress,
     message: "render not finished; poll GET /status/:jobId",
   });
+}
+
+export function getDownload(req, res) {
+  const job = getJob(req.params.jobId);
+  if (!job) return res.status(404).json({ error: "job_not_found", jobId: req.params.jobId });
+  if (job.status !== STATUS.COMPLETED) {
+    return res.status(409).json({ error: "job_not_completed", status: job.status });
+  }
+  const videoPath = job.result?.videoPath;
+  if (!videoPath || !fs.existsSync(videoPath)) {
+    return res.status(404).json({ error: "video_file_not_found" });
+  }
+  return res.download(videoPath);
 }
 
 export function getHealth(_req, res) {

@@ -71,12 +71,14 @@ If n8n runs **on the same host** as the engine, use a **Read Binary File** node
 with `{{ $json.videoPath }}`, then a **Google Drive → Upload** node.
 
 If n8n is **n8n Cloud** (separate host), it cannot read the engine's local disk.
-Two options:
-- Have the engine host expose the file (e.g. a static file server / signed URL)
-  and use **HTTP Request → Download** in n8n; or
-- Run a small companion step on the engine host that pushes the MP4 to Drive.
+Use the download endpoint instead:
 
-The engine intentionally returns a path and leaves the upload to your workflow.
+- **HTTP Request node** → `GET http://YOUR_ENGINE_HOST:8080/download/{{ $json.jobId }}`,
+  with **Response Format: File / Binary**. This streams the MP4 directly into an
+  n8n binary property, which you pass straight to **Google Drive → Upload**.
+
+(`/result` still returns the local `videoPath` for same-host setups that prefer a
+**Read Binary File** node.)
 
 ## curl equivalents (for quick testing)
 
