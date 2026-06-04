@@ -1,0 +1,19 @@
+{
+  "name": "psychology-render-engine",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Headless Remotion rendering service. n8n POSTs a script + thumbnail; the engine generates narration, scene images, subtitles, builds a Remotion timeline, renders an MP4, and returns the result.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "smoke": "node scripts/smoke-test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

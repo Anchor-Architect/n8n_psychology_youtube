@@ -1,0 +1,7 @@
+{
+  "scriptText": "This is a mock render request. It exercises the full API, queue, status, and result flow without calling any paid APIs and without running a real Remotion render. Use it to verify the engine is wired up correctly before plugging in real credentials.",
+  "videoTitle": "Mock Smoke Test",
+  "voice": "adam",
+  "channelType": "psychology",
+  "mock": true
+}

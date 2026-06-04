@@ -1,0 +1,25 @@
+# secrets
+.env
+
+# node
+node_modules/
+remotion/node_modules/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# per-job workspaces + render outputs (regenerated)
+jobs/
+
+# legacy single-run working files / generated assets
+out/
+assets/images/
+assets/images_raw/
+assets/audio/
+replicate.json
+remotion.json
+
+# os
+.DS_Store
