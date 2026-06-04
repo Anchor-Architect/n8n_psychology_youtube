@@ -1,5 +1,13 @@
 # Psychology Video Render Engine
 
+![Node](https://img.shields.io/badge/Node-%E2%89%A520-339933?logo=node.js&logoColor=white)
+![Python](https://img.shields.io/badge/Python-%E2%89%A53.10-3776AB?logo=python&logoColor=white)
+![Remotion](https://img.shields.io/badge/Remotion-4.x-0B84F3?logo=remotion&logoColor=white)
+![Express](https://img.shields.io/badge/API-Express-000000?logo=express&logoColor=white)
+![Driven by n8n](https://img.shields.io/badge/Driven%20by-n8n-EA4B71?logo=n8n&logoColor=white)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+![Status](https://img.shields.io/badge/status-active-success)
+
 A **headless rendering service** that turns an approved script + thumbnail into a
 finished 16:9 MP4. Built to be driven by **n8n Cloud** (Workflow #3).
 
@@ -152,3 +160,7 @@ Output lands at `jobs/<jobId>/output/<title>.mp4`.
    length sets each scene's duration.
 2. One audio file per scene; one Remotion timeline; **16:9 / 1920×1080**.
 3. Images carry **no text** (7s hard cap per image); subtitles are drawn by Remotion.
+
+## License
+
+Proprietary — All rights reserved. See [`LICENSE`](LICENSE).
